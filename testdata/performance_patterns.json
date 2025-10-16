@@ -1,0 +1,124 @@
+{
+  "description": "Patterns for performance testing and benchmarking",
+  "patterns": [
+    {
+      "pattern": "(a+)+",
+      "input_sizes": [10, 20, 30, 40, 50],
+      "expected_growth": "exponential",
+      "attack_suffix": "x",
+      "description": "Classic exponential backtracking"
+    },
+    {
+      "pattern": "a*a*",
+      "input_sizes": [100, 200, 300, 400, 500],
+      "expected_growth": "quadratic",
+      "attack_suffix": "x",
+      "description": "Polynomial (quadratic) backtracking"
+    },
+    {
+      "pattern": "a*a*a*",
+      "input_sizes": [50, 100, 150, 200],
+      "expected_growth": "cubic",
+      "attack_suffix": "x",
+      "description": "Polynomial (cubic) backtracking"
+    },
+    {
+      "pattern": "^[a-z]+$",
+      "input_sizes": [1000, 5000, 10000, 50000, 100000],
+      "expected_growth": "linear",
+      "attack_suffix": "",
+      "description": "Linear time matching - baseline"
+    },
+    {
+      "pattern": "^(a|b)+$",
+      "input_sizes": [1000, 5000, 10000, 50000, 100000],
+      "expected_growth": "linear",
+      "attack_suffix": "",
+      "description": "Alternation without overlap - linear"
+    },
+    {
+      "pattern": "(a|a)*",
+      "input_sizes": [10, 15, 20, 25, 30],
+      "expected_growth": "exponential",
+      "attack_suffix": "x",
+      "description": "Overlapping alternation"
+    },
+    {
+      "pattern": "(.*)*",
+      "input_sizes": [10, 20, 30],
+      "expected_growth": "exponential",
+      "attack_suffix": "x",
+      "description": "Nested wildcard - very dangerous"
+    },
+    {
+      "pattern": "\\d{3}-\\d{4}",
+      "input_sizes": [1000, 10000, 100000],
+      "expected_growth": "constant",
+      "attack_suffix": "",
+      "description": "Fixed format - constant time per attempt"
+    },
+    {
+      "pattern": "(a+)+(b+)+",
+      "input_sizes": [5, 10, 15, 20],
+      "expected_growth": "exponential",
+      "attack_suffix": "x",
+      "description": "Multiple nested groups"
+    },
+    {
+      "pattern": "([a-z]+)+",
+      "input_sizes": [10, 20, 30, 40],
+      "expected_growth": "exponential",
+      "attack_suffix": "x",
+      "description": "Character class with nesting"
+    },
+    {
+      "pattern": "\\w*\\w+",
+      "input_sizes": [100, 200, 400, 800],
+      "expected_growth": "quadratic",
+      "attack_suffix": "x",
+      "description": "Overlapping word quantifiers"
+    },
+    {
+      "pattern": "(a|ab)+",
+      "input_sizes": [50, 100, 150, 200],
+      "expected_growth": "quadratic",
+      "attack_suffix": "x",
+      "description": "Overlapping alternation branches"
+    },
+    {
+      "pattern": "^(.*?)(x+)$",
+      "input_sizes": [1000, 5000, 10000],
+      "expected_growth": "linear",
+      "attack_suffix": "",
+      "description": "Non-greedy with anchors - linear"
+    },
+    {
+      "pattern": "(a{2,5})+",
+      "input_sizes": [20, 40, 60, 80],
+      "expected_growth": "polynomial",
+      "attack_suffix": "x",
+      "description": "Bounded nested - polynomial"
+    },
+    {
+      "pattern": "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).+$",
+      "input_sizes": [1000, 5000, 10000, 50000],
+      "expected_growth": "linear",
+      "attack_suffix": "",
+      "description": "Password validation with lookaheads - linear"
+    }
+  ],
+  "benchmark_config": {
+    "timeout_ms": 5000,
+    "warmup_iterations": 3,
+    "test_iterations": 5,
+    "max_growth_factor": 10,
+    "complexity_thresholds": {
+      "constant": 1.1,
+      "linear": 2.0,
+      "quadratic": 4.0,
+      "cubic": 8.0,
+      "exponential": 10.0
+    }
+  }
+}
+

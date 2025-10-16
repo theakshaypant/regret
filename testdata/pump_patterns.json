@@ -1,0 +1,161 @@
+{
+  "description": "Test patterns for pump pattern integration with AnalyzeComplexity()",
+  "version": "1.0",
+  "categories": {
+    "generates_pump": {
+      "description": "Patterns that should generate pump patterns (score >= 50)",
+      "patterns": [
+        {
+          "pattern": "(a+)+",
+          "description": "Classic nested quantifiers",
+          "expected_score_min": 50,
+          "expected_pump": true,
+          "expected_worst_case": true,
+          "pump_details": {
+            "expected_components": ["a"],
+            "min_input_length": 10
+          }
+        },
+        {
+          "pattern": "((a+)+)+",
+          "description": "Double nested quantifiers",
+          "expected_score_min": 50,
+          "expected_pump": true,
+          "expected_worst_case": true,
+          "pump_details": {
+            "expected_components": ["a"],
+            "min_input_length": 10
+          }
+        },
+        {
+          "pattern": "(b*)*",
+          "description": "Nested star quantifiers",
+          "expected_score_min": 50,
+          "expected_pump": true,
+          "expected_worst_case": true,
+          "pump_details": {
+            "expected_components": ["b"],
+            "min_input_length": 10
+          }
+        },
+        {
+          "pattern": "(\\d+)+",
+          "description": "Nested quantifiers with character class",
+          "expected_score_min": 50,
+          "expected_pump": true,
+          "expected_worst_case": true,
+          "pump_details": {
+            "min_input_length": 10
+          }
+        },
+        {
+          "pattern": "(x+)+(y+)+",
+          "description": "Multiple nested quantifiers",
+          "expected_score_min": 50,
+          "expected_pump": true,
+          "expected_worst_case": true,
+          "pump_details": {
+            "min_input_length": 10
+          }
+        }
+      ]
+    },
+    "no_pump_safe": {
+      "description": "Safe patterns that should not generate pump patterns",
+      "patterns": [
+        {
+          "pattern": "^[a-z]+$",
+          "description": "Simple anchored pattern",
+          "expected_score_max": 49,
+          "expected_pump": false,
+          "expected_worst_case": false
+        },
+        {
+          "pattern": "hello",
+          "description": "Simple literal",
+          "expected_score_max": 49,
+          "expected_pump": false,
+          "expected_worst_case": false
+        },
+        {
+          "pattern": "^https?://[a-z0-9.-]+\\.[a-z]{2,}$",
+          "description": "URL pattern",
+          "expected_score_max": 49,
+          "expected_pump": false,
+          "expected_worst_case": false
+        },
+        {
+          "pattern": "\\d{3}-\\d{3}-\\d{4}",
+          "description": "Phone number",
+          "expected_score_max": 49,
+          "expected_pump": false,
+          "expected_worst_case": false
+        },
+        {
+          "pattern": "[a-z]+",
+          "description": "Simple quantifier",
+          "expected_score_max": 49,
+          "expected_pump": false,
+          "expected_worst_case": false
+        }
+      ]
+    },
+    "no_pump_below_threshold": {
+      "description": "Patterns with issues but below score threshold (score < 50)",
+      "patterns": [
+        {
+          "pattern": "a*a+",
+          "description": "Overlapping quantifiers (polynomial)",
+          "expected_score_max": 49,
+          "expected_pump": false,
+          "expected_worst_case": false,
+          "note": "Score is below 50, so no pump generated despite being suboptimal"
+        },
+        {
+          "pattern": "(a|ab)+",
+          "description": "Overlapping alternation",
+          "expected_score_max": 49,
+          "expected_pump": false,
+          "expected_worst_case": false,
+          "note": "Go's regex engine handles this efficiently"
+        }
+      ]
+    },
+    "edge_cases": {
+      "description": "Edge cases for pump pattern generation",
+      "patterns": [
+        {
+          "pattern": "()+",
+          "description": "Empty group with quantifier",
+          "expected_pump": false,
+          "expected_worst_case": false,
+          "note": "Should handle gracefully"
+        },
+        {
+          "pattern": "a{1000,}",
+          "description": "Large minimum repetition",
+          "expected_pump": false,
+          "expected_worst_case": false,
+          "note": "Not a dangerous pattern, just long"
+        },
+        {
+          "pattern": "(a|a)+",
+          "description": "Redundant alternation",
+          "expected_score_max": 49,
+          "expected_pump": false,
+          "expected_worst_case": false,
+          "note": "Simplified by Go's regex engine"
+        }
+      ]
+    }
+  },
+  "validation": {
+    "total_patterns": 18,
+    "expected_pumps": 5,
+    "expected_safe": 5,
+    "expected_below_threshold": 2,
+    "expected_edge_cases": 3
+  }
+}
+
+

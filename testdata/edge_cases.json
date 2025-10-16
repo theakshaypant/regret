@@ -1,0 +1,181 @@
+{
+  "description": "Edge cases and tricky patterns that test detection accuracy",
+  "patterns": [
+    {
+      "pattern": "(a+)+(b+)+",
+      "description": "Multiple nested quantifiers - should be caught",
+      "expected_status": "unsafe",
+      "reason": "Two separate nested quantifier groups",
+      "category": "multiple_nested"
+    },
+    {
+      "pattern": "a+b+c+",
+      "description": "Adjacent non-overlapping quantifiers - should be safe",
+      "expected_status": "safe",
+      "reason": "Different character classes, no overlap",
+      "category": "adjacent_safe"
+    },
+    {
+      "pattern": "(a+)(b+)",
+      "description": "Adjacent groups without outer quantifier - safe",
+      "expected_status": "safe",
+      "reason": "No nesting, just grouping",
+      "category": "grouping_only"
+    },
+    {
+      "pattern": "(?:a+)+",
+      "description": "Non-capturing group with nested quantifier - unsafe",
+      "expected_status": "unsafe",
+      "reason": "Non-capturing doesn't prevent nesting",
+      "category": "non_capturing"
+    },
+    {
+      "pattern": "(a{2,5})+",
+      "description": "Bounded quantifier nested - can still be problematic",
+      "expected_status": "warning",
+      "reason": "Bounded but still multiplicative",
+      "category": "bounded_nested"
+    },
+    {
+      "pattern": "a{1,100}",
+      "description": "Single bounded quantifier - safe",
+      "expected_status": "safe",
+      "reason": "No nesting, bounded repetition",
+      "category": "bounded_single"
+    },
+    {
+      "pattern": "^(a+)+$",
+      "description": "Anchored nested quantifier - still unsafe",
+      "expected_status": "unsafe",
+      "reason": "Anchors don't prevent ReDoS",
+      "category": "anchored_unsafe"
+    },
+    {
+      "pattern": "^a+$",
+      "description": "Anchored simple quantifier - safe",
+      "expected_status": "safe",
+      "reason": "No nesting",
+      "category": "anchored_safe"
+    },
+    {
+      "pattern": "(a|b)+",
+      "description": "Quantifier over non-overlapping alternation - safe",
+      "expected_status": "safe",
+      "reason": "Branches don't overlap",
+      "category": "alternation_safe"
+    },
+    {
+      "pattern": "(a|ab)+",
+      "description": "Quantifier over overlapping alternation - unsafe",
+      "expected_status": "unsafe",
+      "reason": "Prefix overlap causes backtracking",
+      "category": "alternation_unsafe"
+    },
+    {
+      "pattern": "a*b*c*",
+      "description": "Multiple non-overlapping quantifiers - safe",
+      "expected_status": "safe",
+      "reason": "Different characters",
+      "category": "multiple_safe"
+    },
+    {
+      "pattern": "\\d*\\d*",
+      "description": "Overlapping digit quantifiers - polynomial",
+      "expected_status": "warning",
+      "reason": "Polynomial complexity O(n²)",
+      "category": "polynomial"
+    },
+    {
+      "pattern": "(.*?)x",
+      "description": "Non-greedy quantifier - safer than greedy",
+      "expected_status": "safe",
+      "reason": "Non-greedy reduces backtracking",
+      "category": "non_greedy"
+    },
+    {
+      "pattern": "(.*)x",
+      "description": "Greedy wildcard with specific suffix - can be slow",
+      "expected_status": "warning",
+      "reason": "Greedy wildcard can backtrack",
+      "category": "greedy_wildcard"
+    },
+    {
+      "pattern": "a{5}b{10}",
+      "description": "Fixed repetition - safe",
+      "expected_status": "safe",
+      "reason": "Exact counts, no ambiguity",
+      "category": "fixed_repetition"
+    },
+    {
+      "pattern": "(a{2})+",
+      "description": "Fixed inner quantifier with outer plus - less dangerous",
+      "expected_status": "warning",
+      "reason": "Limited but still nested",
+      "category": "fixed_nested"
+    },
+    {
+      "pattern": "[abc]+",
+      "description": "Character class with quantifier - safe",
+      "expected_status": "safe",
+      "reason": "Single quantifier",
+      "category": "char_class_safe"
+    },
+    {
+      "pattern": "([abc]+)+",
+      "description": "Nested quantifier over character class - unsafe",
+      "expected_status": "unsafe",
+      "reason": "Nesting causes exponential paths",
+      "category": "char_class_unsafe"
+    },
+    {
+      "pattern": "\\b\\w+\\b",
+      "description": "Word boundary with quantifier - safe",
+      "expected_status": "safe",
+      "reason": "Boundaries limit backtracking",
+      "category": "word_boundary"
+    },
+    {
+      "pattern": "(\\w+\\s*)+",
+      "description": "Words with optional spaces - nested",
+      "expected_status": "unsafe",
+      "reason": "Space overlap causes issues",
+      "category": "space_overlap"
+    },
+    {
+      "pattern": "\\b\\w+\\s+\\w+\\b",
+      "description": "Word boundaries with spaces - safe",
+      "expected_status": "safe",
+      "reason": "Word boundaries are efficient",
+      "category": "word_boundary_safe"
+    },
+    {
+      "pattern": "a+|a*",
+      "description": "Alternation with overlapping branches - can backtrack",
+      "expected_status": "warning",
+      "reason": "Branch overlap",
+      "category": "alternation_overlap"
+    },
+    {
+      "pattern": "(a+)?(a+)?",
+      "description": "Optional nested quantifiers - polynomial",
+      "expected_status": "warning",
+      "reason": "Optional makes it polynomial not exponential",
+      "category": "optional_nested"
+    },
+    {
+      "pattern": "^$",
+      "description": "Empty string anchor - trivial safe",
+      "expected_status": "safe",
+      "reason": "Constant time",
+      "category": "trivial"
+    },
+    {
+      "pattern": ".*",
+      "description": "Simple wildcard - safe",
+      "expected_status": "safe",
+      "reason": "Single quantifier, no backtracking",
+      "category": "simple_wildcard"
+    }
+  ]
+}
+

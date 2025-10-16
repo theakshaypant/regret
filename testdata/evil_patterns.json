@@ -1,0 +1,207 @@
+{
+  "description": "Known dangerous regex patterns that can cause catastrophic backtracking (ReDoS)",
+  "patterns": [
+    {
+      "pattern": "(a+)+",
+      "category": "nested_quantifiers",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Classic nested quantifier - causes exponential backtracking",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaax",
+      "source": "OWASP ReDoS"
+    },
+    {
+      "pattern": "(a*)*",
+      "category": "nested_quantifiers",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Nested star quantifiers - exponential paths",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "(a+)+b",
+      "category": "nested_quantifiers",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Nested quantifiers with required suffix",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaac"
+    },
+    {
+      "pattern": "(a|a)*",
+      "category": "overlapping_alternation",
+      "severity": "high",
+      "complexity": "O(2^n)",
+      "description": "Alternation with overlapping branches",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "(a|ab)+",
+      "category": "overlapping_alternation",
+      "severity": "high",
+      "complexity": "O(n^2)",
+      "description": "Alternation where one branch is prefix of another",
+      "attack_input": "abababababababababababx"
+    },
+    {
+      "pattern": "(.*)*",
+      "category": "nested_wildcards",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Nested wildcard quantifiers",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "(.+)+",
+      "category": "nested_wildcards",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Nested any-character quantifiers",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "a*a*",
+      "category": "overlapping_quantifiers",
+      "severity": "high",
+      "complexity": "O(n^2)",
+      "description": "Adjacent quantifiers matching same input",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "\\d*\\d+",
+      "category": "overlapping_quantifiers",
+      "severity": "high",
+      "complexity": "O(n^2)",
+      "description": "Overlapping digit quantifiers",
+      "attack_input": "111111111111111111111111x"
+    },
+    {
+      "pattern": "\\w*\\w+",
+      "category": "overlapping_quantifiers",
+      "severity": "high",
+      "complexity": "O(n^2)",
+      "description": "Overlapping word character quantifiers",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "(a+)+c",
+      "category": "nested_quantifiers",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Nested quantifiers with specific suffix",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "(a*)+",
+      "category": "nested_quantifiers",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Plus over star",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "((a+)+)+",
+      "category": "deeply_nested_quantifiers",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Triple nested quantifiers",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "(a+|b+)+",
+      "category": "quantifier_over_alternation",
+      "severity": "medium",
+      "complexity": "O(n^2)",
+      "description": "Quantifier over alternation - can be polynomial",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "(a|a|b)*",
+      "category": "overlapping_alternation",
+      "severity": "high",
+      "complexity": "O(2^n)",
+      "description": "Multiple overlapping branches",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "(.*a){2,}",
+      "category": "exponential_path",
+      "severity": "high",
+      "complexity": "O(2^n)",
+      "description": "Greedy wildcard with specific requirement repeated",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaab"
+    },
+    {
+      "pattern": "^(a+)+$",
+      "category": "anchored_nested",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Anchored nested quantifier",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "^(.*)*$",
+      "category": "anchored_nested",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Anchored nested wildcard",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "pattern": "(a*)*b",
+      "category": "nested_quantifiers",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Nested star with required character",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "([a-zA-Z]+)*",
+      "category": "nested_quantifiers",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Star over plus with character class",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "(x+x+)+y",
+      "category": "nested_quantifiers",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Nested quantifiers with concatenation",
+      "attack_input": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "pattern": "(x+)+(y+)+",
+      "category": "multiple_nested",
+      "severity": "high",
+      "complexity": "O(2^n)",
+      "description": "Multiple nested quantifiers",
+      "attack_input": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy"
+    },
+    {
+      "pattern": "([a-z]+)+",
+      "category": "nested_quantifiers",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Plus over character class plus",
+      "attack_input": "aaaaaaaaaaaaaaaaaaaaaaaax"
+    },
+    {
+      "pattern": "(\\d+)+\\.\\d+",
+      "category": "nested_with_literal",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Nested digits before decimal",
+      "attack_input": "111111111111111111111111x"
+    },
+    {
+      "pattern": "(\\w+\\s*)+",
+      "category": "nested_quantifiers",
+      "severity": "critical",
+      "complexity": "O(2^n)",
+      "description": "Words with optional spaces, nested",
+      "attack_input": "word word word word word word x"
+    }
+  ]
+}
+

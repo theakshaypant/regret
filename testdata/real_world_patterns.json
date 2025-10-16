@@ -1,0 +1,146 @@
+{
+  "description": "Real-world regex patterns from popular projects and libraries",
+  "patterns": [
+    {
+      "pattern": "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])$",
+      "source": "RFC 5322",
+      "category": "email",
+      "status": "safe",
+      "description": "Official RFC 5322 email validation - complex but safe"
+    },
+    {
+      "pattern": "^(https?:\\/\\/)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$",
+      "source": "Common URL validator",
+      "category": "url",
+      "status": "safe",
+      "description": "Common URL validation pattern"
+    },
+    {
+      "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
+      "source": "Password validators",
+      "category": "password",
+      "status": "safe",
+      "description": "Strong password validation with lookaheads"
+    },
+    {
+      "pattern": "^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$",
+      "source": "Network tools",
+      "category": "ipv4",
+      "status": "safe",
+      "description": "Simple IPv4 validation"
+    },
+    {
+      "pattern": "(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))",
+      "source": "Network libraries",
+      "category": "ipv6",
+      "status": "safe",
+      "description": "Comprehensive IPv6 validation"
+    },
+    {
+      "pattern": "^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
+      "source": "HTML5 spec",
+      "category": "email",
+      "status": "safe",
+      "description": "HTML5 email input validation"
+    },
+    {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?Z?$",
+      "source": "ISO 8601",
+      "category": "datetime",
+      "status": "safe",
+      "description": "ISO 8601 datetime format"
+    },
+    {
+      "pattern": "^[A-Z]{3}$",
+      "source": "Currency systems",
+      "category": "currency_code",
+      "status": "safe",
+      "description": "ISO 4217 currency codes"
+    },
+    {
+      "pattern": "^\\+?[1-9]\\d{1,14}$",
+      "source": "Telecom standards",
+      "category": "phone",
+      "status": "safe",
+      "description": "E.164 international phone format"
+    },
+    {
+      "pattern": "^[a-z][-a-z0-9]*$",
+      "source": "Kubernetes",
+      "category": "identifier",
+      "status": "safe",
+      "description": "Kubernetes resource names"
+    },
+    {
+      "pattern": "^arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]*:.*$",
+      "source": "AWS",
+      "category": "arn",
+      "status": "safe",
+      "description": "AWS ARN format"
+    },
+    {
+      "pattern": "^projects/[^/]+/locations/[^/]+/clusters/[^/]+$",
+      "source": "Google Cloud",
+      "category": "resource_path",
+      "status": "safe",
+      "description": "GCP resource path"
+    },
+    {
+      "pattern": "^v\\d+\\.\\d+\\.\\d+(-[a-z0-9]+)?$",
+      "source": "Semantic versioning",
+      "category": "version",
+      "status": "safe",
+      "description": "Semantic version format"
+    },
+    {
+      "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$",
+      "source": "DNS RFC",
+      "category": "domain",
+      "status": "safe",
+      "description": "Valid DNS hostname"
+    },
+    {
+      "pattern": "^[0-9a-f]{7,40}$",
+      "source": "Git",
+      "category": "git_hash",
+      "status": "safe",
+      "description": "Git commit hash"
+    },
+    {
+      "pattern": "^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$",
+      "source": "Docker",
+      "category": "domain",
+      "status": "safe",
+      "description": "Docker registry domain"
+    },
+    {
+      "pattern": "^/(?:[^/]+/)*[^/]*$",
+      "source": "File systems",
+      "category": "path",
+      "status": "safe",
+      "description": "Unix-style file path"
+    },
+    {
+      "pattern": "^[A-Z][A-Z0-9_]*$",
+      "source": "Programming conventions",
+      "category": "constant",
+      "status": "safe",
+      "description": "Constant name (SCREAMING_SNAKE_CASE)"
+    },
+    {
+      "pattern": "^[a-z_][a-z0-9_]*$",
+      "source": "Programming conventions",
+      "category": "variable",
+      "status": "safe",
+      "description": "Variable name (snake_case)"
+    },
+    {
+      "pattern": "^[a-zA-Z_$][a-zA-Z0-9_$]*$",
+      "source": "JavaScript",
+      "category": "identifier",
+      "status": "safe",
+      "description": "JavaScript identifier"
+    }
+  ]
+}
+
